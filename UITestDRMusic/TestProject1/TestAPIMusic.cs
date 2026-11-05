@@ -56,5 +56,19 @@ namespace DRMusicUITest
 
             TearDown();
         }
+        [Fact]
+        public void TestDeleteMusicRecord()
+        {
+            InitializeDriver();
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(60));
+
+            IWebElement MusicRecordTable = wait.Until(driver => driver.FindElement(By.Id("music_record_table")));
+            IWebElement deleteButton = wait.Until(driver => driver.FindElement(By.Id("delete_record_button0")));
+            deleteButton.Click();
+
+            Assert.False(MusicRecordTable.Text.Contains("Album 1"));
+
+            TearDown();
+        }
     }
 }
