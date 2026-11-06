@@ -13,7 +13,7 @@ namespace DRMusicUITest
         public static void InitializeDriver()
         {
             _driver = new FirefoxDriver(DriverDirectory);
-            string url = "http://127.0.0.1:3000/index.html?vscode-livepreview=true";
+            string url = "http://127.0.0.1:3000/index.html";
             _driver.Navigate().GoToUrl(url);
         }
         public static void TearDown()
@@ -52,7 +52,7 @@ namespace DRMusicUITest
             addMusicButton.Click();
 
             IWebElement MusicRecordTable = wait.Until(d => d.FindElement(By.Id("music_record_table")));
-            Assert.True(MusicRecordTable.Text.Contains("Test Album"));
+            Assert.Contains("Test Album", MusicRecordTable.Text);
 
             TearDown();
         }
@@ -63,10 +63,10 @@ namespace DRMusicUITest
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(60));
 
             IWebElement MusicRecordTable = wait.Until(driver => driver.FindElement(By.Id("music_record_table")));
-            IWebElement deleteButton = wait.Until(driver => driver.FindElement(By.Id("delete_record_button0")));
+            IWebElement deleteButton = wait.Until(driver => driver.FindElement(By.Id("delete_record_button_1")));
             deleteButton.Click();
 
-            Assert.False(MusicRecordTable.Text.Contains("Album 1"));
+            Assert.False(MusicRecordTable.Text.Contains("Album 2"));
 
             TearDown();
         }
